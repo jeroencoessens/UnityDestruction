@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: f72e6064429d16547a8e8746959708c0
+timeCreated: 1478118605
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: r8_gt_body
+    100004: r8_gt_body_MeshPart0
+    100006: r8_gt_body_MeshPart1
+    100008: r8_gt_body_MeshPart10
+    100010: r8_gt_body_MeshPart11
+    100012: r8_gt_body_MeshPart12
+    100014: r8_gt_body_MeshPart13
+    100016: r8_gt_body_MeshPart14
+    100018: r8_gt_body_MeshPart15
+    100020: r8_gt_body_MeshPart16
+    100022: r8_gt_body_MeshPart17
+    100024: r8_gt_body_MeshPart18
+    100026: r8_gt_body_MeshPart19
+    100028: r8_gt_body_MeshPart2
+    100030: r8_gt_body_MeshPart20
+    100032: r8_gt_body_MeshPart21
+    100034: r8_gt_body_MeshPart3
+    100036: r8_gt_body_MeshPart4
+    100038: r8_gt_body_MeshPart5
+    100040: r8_gt_body_MeshPart6
+    100042: r8_gt_body_MeshPart7
+    100044: r8_gt_body_MeshPart8
+    100046: r8_gt_body_MeshPart9
+    400000: //RootNode
+    400002: r8_gt_body
+    400004: r8_gt_body_MeshPart0
+    400006: r8_gt_body_MeshPart1
+    400008: r8_gt_body_MeshPart10
+    400010: r8_gt_body_MeshPart11
+    400012: r8_gt_body_MeshPart12
+    400014: r8_gt_body_MeshPart13
+    400016: r8_gt_body_MeshPart14
+    400018: r8_gt_body_MeshPart15
+    400020: r8_gt_body_MeshPart16
+    400022: r8_gt_body_MeshPart17
+    400024: r8_gt_body_MeshPart18
+    400026: r8_gt_body_MeshPart19
+    400028: r8_gt_body_MeshPart2
+    400030: r8_gt_body_MeshPart20
+    400032: r8_gt_body_MeshPart21
+    400034: r8_gt_body_MeshPart3
+    400036: r8_gt_body_MeshPart4
+    400038: r8_gt_body_MeshPart5
+    400040: r8_gt_body_MeshPart6
+    400042: r8_gt_body_MeshPart7
+    400044: r8_gt_body_MeshPart8
+    400046: r8_gt_body_MeshPart9
+    2300000: r8_gt_body_MeshPart0
+    2300002: r8_gt_body_MeshPart1
+    2300004: r8_gt_body_MeshPart10
+    2300006: r8_gt_body_MeshPart11
+    2300008: r8_gt_body_MeshPart12
+    2300010: r8_gt_body_MeshPart13
+    2300012: r8_gt_body_MeshPart14
+    2300014: r8_gt_body_MeshPart15
+    2300016: r8_gt_body_MeshPart16
+    2300018: r8_gt_body_MeshPart17
+    2300020: r8_gt_body_MeshPart18
+    2300022: r8_gt_body_MeshPart19
+    2300024: r8_gt_body_MeshPart2
+    2300026: r8_gt_body_MeshPart20
+    2300028: r8_gt_body_MeshPart21
+    2300030: r8_gt_body_MeshPart3
+    2300032: r8_gt_body_MeshPart4
+    2300034: r8_gt_body_MeshPart5
+    2300036: r8_gt_body_MeshPart6
+    2300038: r8_gt_body_MeshPart7
+    2300040: r8_gt_body_MeshPart8
+    2300042: r8_gt_body_MeshPart9
+    3300000: r8_gt_body_MeshPart0
+    3300002: r8_gt_body_MeshPart1
+    3300004: r8_gt_body_MeshPart10
+    3300006: r8_gt_body_MeshPart11
+    3300008: r8_gt_body_MeshPart12
+    3300010: r8_gt_body_MeshPart13
+    3300012: r8_gt_body_MeshPart14
+    3300014: r8_gt_body_MeshPart15
+    3300016: r8_gt_body_MeshPart16
+    3300018: r8_gt_body_MeshPart17
+    3300020: r8_gt_body_MeshPart18
+    3300022: r8_gt_body_MeshPart19
+    3300024: r8_gt_body_MeshPart2
+    3300026: r8_gt_body_MeshPart20
+    3300028: r8_gt_body_MeshPart21
+    3300030: r8_gt_body_MeshPart3
+    3300032: r8_gt_body_MeshPart4
+    3300034: r8_gt_body_MeshPart5
+    3300036: r8_gt_body_MeshPart6
+    3300038: r8_gt_body_MeshPart7
+    3300040: r8_gt_body_MeshPart8
+    3300042: r8_gt_body_MeshPart9
+    4300000: r8_gt_body_MeshPart0
+    4300002: r8_gt_body_MeshPart1
+    4300004: r8_gt_body_MeshPart2
+    4300006: r8_gt_body_MeshPart3
+    4300008: r8_gt_body_MeshPart4
+    4300010: r8_gt_body_MeshPart5
+    4300012: r8_gt_body_MeshPart6
+    4300014: r8_gt_body_MeshPart7
+    4300016: r8_gt_body_MeshPart8
+    4300018: r8_gt_body_MeshPart9
+    4300020: r8_gt_body_MeshPart10
+    4300022: r8_gt_body_MeshPart11
+    4300024: r8_gt_body_MeshPart12
+    4300026: r8_gt_body_MeshPart13
+    4300028: r8_gt_body_MeshPart14
+    4300030: r8_gt_body_MeshPart15
+    4300032: r8_gt_body_MeshPart16
+    4300034: r8_gt_body_MeshPart17
+    4300036: r8_gt_body_MeshPart18
+    4300038: r8_gt_body_MeshPart19
+    4300040: r8_gt_body_MeshPart20
+    4300042: r8_gt_body_MeshPart21
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
