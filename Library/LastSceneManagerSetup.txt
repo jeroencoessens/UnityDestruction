@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Resources/Slicing/Scenes/Mesh_Cut - Play, click cube.unity
+- path: Assets/Resources/Scenes/SLICING.unity
   isLoaded: 1
   isActive: 1
