@@ -2,17 +2,11 @@
 using UnityEngine;
 using System.Collections;
 using BLINDED_AM_ME;
-using UnityEngine.UI;
-using System.Threading;
-using CielaSpike;
 
 public class ToolUser : MonoBehaviour {
 
-	public Material capMaterial;
-    public Text SecondsToCalculate;
+	private Material _capMaterial;
     public GameObject FollowUpGameObject;
-
-    // Multi-threading... -> no transform :/
 
     // should make mesh collider ( max 255 poly convex hull )
     public Vector3 forceRightObj = Vector3.zero;
@@ -21,19 +15,18 @@ public class ToolUser : MonoBehaviour {
     void Start()
     {
         if(FollowUpGameObject != null)FollowUpGameObject.SetActive(false);
+        _capMaterial = Resources.Load<Material>("Materials/matte 9");
     }
 	
 	void Update(){
 
 		if(Input.GetMouseButtonDown(0))
         {
-            // I want this function on a different thread
-            // but I need transform
-            CutMesh();
+            StartCoroutine(CutMesh());
         }
 	}
 
-    private void CutMesh()
+    private IEnumerator CutMesh()
     {
         RaycastHit hit;
 
@@ -41,6 +34,8 @@ public class ToolUser : MonoBehaviour {
         {
             // object to slice
             GameObject victim = hit.collider.gameObject;
+            if (victim.tag == "NoSlicing") yield break;
+
             string victimName = victim.name;
 
             // create array with 2 sides
@@ -49,15 +44,21 @@ public class ToolUser : MonoBehaviour {
             //--------------------------------------------------------------
 
             // ++ PROFILE ++
-            float timeStored = DateTime.Now.Second;
+            //float timeStored = DateTime.Now.Second;
+            //Profiler.BeginSample("Mesh Cutter Profiled");
+            //System.GC.Collect();
 
             // -- MESH CUT --
-            GameObject[] pieces = MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
+            GameObject[] pieces = null;
+            yield return MeshCut.Cut(victim, transform.position, transform.right, _capMaterial, (obj) =>
+            {
+                pieces = obj;
+            });
 
             // ++ PROFILE ++
-            float timeReal = DateTime.Now.Second - timeStored;
-            Debug.Log(victimName + " took " + Mathf.Abs(timeReal).ToString("F0") + " seconds to calculate");
-            if (SecondsToCalculate != null) SecondsToCalculate.text = Mathf.Abs(timeReal).ToString("F0") + " sec.";
+            //float timeReal = DateTime.Now.Second - timeStored;
+            //Debug.Log(victimName + " took " + Mathf.Abs(timeReal).ToString("F0") + " seconds to calculate");
+            //Profiler.EndSample();
 
             //--------------------------------------------------------------
 
@@ -84,6 +85,9 @@ public class ToolUser : MonoBehaviour {
             if (pieces[0].GetComponent<BoxCollider>())
                 Destroy(pieces[0].GetComponent<BoxCollider>());
 
+            if (pieces[0].GetComponent<MeshCollider>())
+                Destroy(pieces[0].GetComponent<MeshCollider>());
+
             // Add Coliiders
             if (AddMeshCollider)
             {
@@ -106,9 +110,9 @@ public class ToolUser : MonoBehaviour {
         }
     }
 
-	void OnDrawGizmosSelected() {
-
-		Gizmos.color = Color.yellow;
+	void OnDrawGizmosSelected()
+    {
+		Gizmos.color = Color.red;
 
 		Gizmos.DrawLine(transform.position, transform.position + transform.forward * 5.0f);
 		Gizmos.DrawLine(transform.position + transform.up * 0.5f, transform.position + transform.up * 0.5f + transform.forward * 5.0f);
@@ -117,19 +121,4 @@ public class ToolUser : MonoBehaviour {
 		Gizmos.DrawLine(transform.position, transform.position + transform.up * 0.5f);
 		Gizmos.DrawLine(transform.position,  transform.position + -transform.up * 0.5f);
 	}
-
-    // Threading with Ciela - Ninja
-    IEnumerator CutMeshRoutine()
-    {
-        Task task;
-        this.StartCoroutineAsync(Cutting(), out task);
-        yield return StartCoroutine(task.Wait());
-    }
-
-    IEnumerator Cutting()
-    {
-        yield return Ninja.JumpBack;
-        CutMesh();
-        yield return Ninja.JumpToUnity;
-    }
 }

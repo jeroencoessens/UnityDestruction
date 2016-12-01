@@ -88,6 +88,7 @@
     <Compile Include="Assets\CielaSpike\Thread Ninja\ThreadNinjaMonoBehaviourExtensions.cs" />
     <Compile Include="Assets\Resources\Script\ControlTimeBasic.cs" />
     <Compile Include="Assets\Resources\Script\OnClick.cs" />
+    <Compile Include="Assets\Resources\Script\Overview.cs" />
     <Compile Include="Assets\Resources\Script\RotateSimple.cs" />
     <Compile Include="Assets\Resources\Script\SmoothRotate.cs" />
     <Compile Include="Assets\Resources\Slicing\OtherResources\MiniJSON.cs" />

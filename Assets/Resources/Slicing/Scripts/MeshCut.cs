@@ -8,8 +8,7 @@ namespace BLINDED_AM_ME{
 
 		private static Mesh_Maker _leftSide = new Mesh_Maker();
 		private static Mesh_Maker _rightSide = new Mesh_Maker();
-
-
+        
 		private static Plane _blade;
 		private static Mesh  _victim_mesh;
 
@@ -17,10 +16,12 @@ namespace BLINDED_AM_ME{
 		private static List<Vector3> _new_vertices = new List<Vector3>();
 		private static int _capMatSub = 1;
 
-		/// <summary>
-		/// Cut the specified victim
-		/// </summary>
-		public static GameObject[] Cut(GameObject victim, Vector3 anchorPoint, Vector3 normalDirection, Material capMaterial){
+        private static List<Vector3> capVertTracker = new List<Vector3>();
+        private static List<Vector3> capVertpolygon = new List<Vector3>();
+
+        private static int[] indices;
+        
+        public static IEnumerator Cut(GameObject victim, Vector3 anchorPoint, Vector3 normalDirection, Material capMaterial, System.Action<GameObject[]> callback){
 
 			// set the blade relative to victim
 			_blade = new Plane(victim.transform.InverseTransformDirection(-normalDirection),
@@ -35,70 +36,79 @@ namespace BLINDED_AM_ME{
 			_leftSide  = new Mesh_Maker();
 			_rightSide = new Mesh_Maker();
             
-			bool[] sides = new bool[3];
-			int[] indices;
-			int   p1,p2,p3;
+			var sides = new bool[3];
+
+            var victimVerticesArr = _victim_mesh.vertices;
+            var victimNormalsArr = _victim_mesh.normals;
+            var victimUVArr = _victim_mesh.uv;
+            var victimTangentsArr = _victim_mesh.tangents;
+
+            int p1 = 0;
+            int p2 = 0;
+            int p3 = 0;
 
 			// go through the submeshes
-			for(int sub=0; sub<_victim_mesh.subMeshCount; sub++){
-
+			for(var sub=0; sub<_victim_mesh.subMeshCount; ++sub)
+            {
 				indices = _victim_mesh.GetTriangles(sub);
-
-				for(int i=0; i<indices.Length; i+=3){
+                
+				for(var i=0; i<indices.Length; i+=3)
+				{
+				    if (i%2500 == 0) yield return null;
 
 					p1 = indices[i];
 					p2 = indices[i+1];
 					p3 = indices[i+2];
 
-					sides[0] = _blade.GetSide(_victim_mesh.vertices[p1]);
-					sides[1] = _blade.GetSide(_victim_mesh.vertices[p2]);
-					sides[2] = _blade.GetSide(_victim_mesh.vertices[p3]);
-
-
+					sides[0] = _blade.GetSide(victimVerticesArr[p1]);
+					sides[1] = _blade.GetSide(victimVerticesArr[p2]);
+					sides[2] = _blade.GetSide(victimVerticesArr[p3]);
+                    
 					// whole triangle
 				    if (sides[0] == sides[1] && sides[0] == sides[2])
 				    {
-
 				        if (sides[0])
 				        {
 				            // left side
-
 				            _leftSide.AddTriangle(
-				                new Vector3[] {_victim_mesh.vertices[p1], _victim_mesh.vertices[p2], _victim_mesh.vertices[p3]},
-				                new Vector3[] {_victim_mesh.normals[p1], _victim_mesh.normals[p2], _victim_mesh.normals[p3]},
-				                new Vector2[] {_victim_mesh.uv[p1], _victim_mesh.uv[p2], _victim_mesh.uv[p3]},
-				                new Vector4[] {_victim_mesh.tangents[p1], _victim_mesh.tangents[p2], _victim_mesh.tangents[p3]},
+                                new[] {victimVerticesArr[p1], victimVerticesArr[p2], victimVerticesArr[p3]}, 
+                                new[] {victimNormalsArr[p1], victimNormalsArr[p2], victimNormalsArr[p3]}, 
+                                new[] {victimUVArr[p1], victimUVArr[p2], victimUVArr[p3]}, 
+                                new[] {victimTangentsArr[p1], victimTangentsArr[p2], victimTangentsArr[p3]},
 				                sub);
 				        }
 				        else
 				        {
+                            // right side
 				            _rightSide.AddTriangle(
-				                new Vector3[] {_victim_mesh.vertices[p1], _victim_mesh.vertices[p2], _victim_mesh.vertices[p3]},
-				                new Vector3[] {_victim_mesh.normals[p1], _victim_mesh.normals[p2], _victim_mesh.normals[p3]},
-				                new Vector2[] {_victim_mesh.uv[p1], _victim_mesh.uv[p2], _victim_mesh.uv[p3]},
-				                new Vector4[] {_victim_mesh.tangents[p1], _victim_mesh.tangents[p2], _victim_mesh.tangents[p3]},
+                                new[] {victimVerticesArr[p1], victimVerticesArr[p2], victimVerticesArr[p3]},
+				                new[] {victimNormalsArr[p1], victimNormalsArr[p2], victimNormalsArr[p3]},
+				                new[] {victimUVArr[p1], victimUVArr[p2], victimUVArr[p3]},
+				                new[] {victimTangentsArr[p1], victimTangentsArr[p2], victimTangentsArr[p3]},
 				                sub);
 				        }
 				    }
 				    else
 				    {
 				        // cut the triangle
-
 				        Cut_this_Face(
-				            new Vector3[] {_victim_mesh.vertices[p1], _victim_mesh.vertices[p2], _victim_mesh.vertices[p3]},
-				            new Vector3[] {_victim_mesh.normals[p1], _victim_mesh.normals[p2], _victim_mesh.normals[p3]},
-				            new Vector2[] {_victim_mesh.uv[p1], _victim_mesh.uv[p2], _victim_mesh.uv[p3]},
-				            new Vector4[] {_victim_mesh.tangents[p1], _victim_mesh.tangents[p2], _victim_mesh.tangents[p3]},
+				            new[] {victimVerticesArr[p1], victimVerticesArr[p2], victimVerticesArr[p3]},
+				            new[] {victimNormalsArr[p1], victimNormalsArr[p2], victimNormalsArr[p3]},
+				            new[] {victimUVArr[p1], victimUVArr[p2], victimUVArr[p3]},
+				            new[] {victimTangentsArr[p1], victimTangentsArr[p2], victimTangentsArr[p3]},
 				            sub);
 				    }
 				}
-			}
+                yield return null;
+            }
+
+            indices = null;
 
 			// The capping Material will be at the end
-			Material[] mats = victim.GetComponent<MeshRenderer>().sharedMaterials;
+			var mats = victim.GetComponent<MeshRenderer>().sharedMaterials;
 		    if (mats[mats.Length - 1].name != capMaterial.name)
 		    {
-		        Material[] newMats = new Material[mats.Length + 1];
+		        var newMats = new Material[mats.Length + 1];
 		        mats.CopyTo(newMats, 0);
 		        newMats[mats.Length] = capMaterial;
 		        mats = newMats;
@@ -109,11 +119,11 @@ namespace BLINDED_AM_ME{
 			Capping();
             
 			// Left Mesh
-			Mesh left_HalfMesh = _leftSide.GetMesh();
+			var left_HalfMesh = _leftSide.GetMesh();
 			left_HalfMesh.name =  "Split Mesh Left";
 
-			// Right Mesh
-			Mesh right_HalfMesh = _rightSide.GetMesh();
+            // Right Mesh
+            var right_HalfMesh = _rightSide.GetMesh();
 			right_HalfMesh.name = "Split Mesh Right";
 
 			// assign the game objects
@@ -121,9 +131,9 @@ namespace BLINDED_AM_ME{
 			victim.name = "left side";
 			victim.GetComponent<MeshFilter>().mesh = left_HalfMesh;
 
-			GameObject leftSideObj = victim;
+            var leftSideObj = victim;
 
-			GameObject rightSideObj = new GameObject("right side", typeof(MeshFilter), typeof(MeshRenderer));
+            var rightSideObj = new GameObject("right side", typeof(MeshFilter), typeof(MeshRenderer));
 			rightSideObj.transform.position = victim.transform.position;
 			rightSideObj.transform.rotation = victim.transform.rotation;
 			rightSideObj.GetComponent<MeshFilter>().mesh = right_HalfMesh;
@@ -132,39 +142,32 @@ namespace BLINDED_AM_ME{
 			leftSideObj.GetComponent<MeshRenderer>().materials = mats;
 			rightSideObj.GetComponent<MeshRenderer>().materials = mats;
 
-			return new []{ leftSideObj, rightSideObj };
+			callback( new []{ leftSideObj, rightSideObj });
 		}
 
-		/// <summary>
-		///  I have no idea how I made this work
-		/// </summary>
-		private static void Cut_this_Face(
-			Vector3[] vertices,
-			Vector3[] normals,
-			Vector2[] uvs,
-			Vector4[] tangents,
-			int       submesh){
 
+
+        private static void Cut_this_Face(Vector3[] vertices, Vector3[] normals, Vector2[] uvs, Vector4[] tangents,int submesh)
+        {
 			bool[] sides = new bool[3];
 			sides[0] = _blade.GetSide(vertices[0]); // true = left
 			sides[1] = _blade.GetSide(vertices[1]);
-			sides[2] = _blade.GetSide(vertices[2]);
+            sides[2] = _blade.GetSide(vertices[2]);
 
+            Vector3[] leftPoints = new Vector3[2];
+            Vector3[] leftNormals = new Vector3[2];
+            Vector2[] leftUvs = new Vector2[2];
+            Vector4[] leftTangents = new Vector4[2];
+            Vector3[] rightPoints = new Vector3[2];
+            Vector3[] rightNormals = new Vector3[2];
+            Vector2[] rightUvs = new Vector2[2];
+            Vector4[] rightTangents = new Vector4[2];
 
-			Vector3[] leftPoints = new Vector3[2];
-			Vector3[] leftNormals = new Vector3[2];
-			Vector2[] leftUvs = new Vector2[2];
-			Vector4[] leftTangents = new Vector4[2];
-			Vector3[] rightPoints = new Vector3[2];
-			Vector3[] rightNormals = new Vector3[2];
-			Vector2[] rightUvs = new Vector2[2];
-			Vector4[] rightTangents = new Vector4[2];
-
-			bool didset_left = false;
+            bool didset_left = false;
 			bool didset_right = false;
 
-			for(int i=0; i<3; i++){
-
+			for(int i = 0; i < 3; ++i)
+            {
 			    if (sides[i])
 			    {
 			        if (!didset_left)
@@ -179,7 +182,6 @@ namespace BLINDED_AM_ME{
 			            leftNormals[1] = leftNormals[0];
 			            leftTangents[0] = tangents[i];
 			            leftTangents[1] = leftTangents[0];
-
 			        }
 			        else
 			        {
@@ -188,7 +190,6 @@ namespace BLINDED_AM_ME{
 			            leftUvs[1] = uvs[i];
 			            leftNormals[1] = normals[i];
 			            leftTangents[1] = tangents[i];
-
 			        }
 			    }
 			    else
@@ -205,11 +206,9 @@ namespace BLINDED_AM_ME{
 			            rightNormals[1] = rightNormals[0];
 			            rightTangents[0] = tangents[i];
 			            rightTangents[1] = rightTangents[0];
-
 			        }
 			        else
 			        {
-
 			            rightPoints[1] = vertices[i];
 			            rightUvs[1] = uvs[i];
 			            rightNormals[1] = normals[i];
@@ -291,13 +290,9 @@ namespace BLINDED_AM_ME{
 			}
 
 			_rightSide.AddTriangle(final_verts, final_norms, final_uvs, final_tangents, submesh);
-		}
+        }
 
-		private static void FlipFace(
-			Vector3[] verts,
-			Vector3[] norms,
-			Vector2[] uvs, 
-			Vector4[] tangents)
+		private static void FlipFace(Vector3[] verts, Vector3[] norms, Vector2[] uvs, Vector4[] tangents)
 		{
 			Vector3 temp = verts[2];
 			verts[2] = verts[0];
@@ -316,9 +311,6 @@ namespace BLINDED_AM_ME{
 			tangents[0] = temp3;
 
 		}
-			
-		private static List<Vector3> capVertTracker = new List<Vector3>();
-		private static List<Vector3> capVertpolygon = new List<Vector3>();
 
 	    static void Capping()
 	    {

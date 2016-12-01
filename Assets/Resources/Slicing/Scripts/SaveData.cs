@@ -236,7 +236,7 @@ namespace BLINDED_AM_ME{
 		{ 
 
 			MemoryStream memory = new MemoryStream(Encoding.UTF8.GetBytes(dataString));
-			XmlTextWriter writer = new XmlTextWriter(memory, Encoding.UTF8); 
+			//XmlTextWriter writer = new XmlTextWriter(memory, Encoding.UTF8); 
 			XmlSerializer serializer = new XmlSerializer(typeof(List<string>)); 
 
 			List<string> list = (List<string>) serializer.Deserialize(memory);
