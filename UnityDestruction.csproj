@@ -101,6 +101,7 @@
     <Compile Include="Assets\Resources\Script\CountSimple.cs" />
     <Compile Include="Assets\Resources\Script\DestroySelf.cs" />
     <Compile Include="Assets\Resources\Script\HightLightedObject.cs" />
+    <Compile Include="Assets\Resources\Script\KeepRotating.cs" />
     <Compile Include="Assets\Resources\Script\OnClick.cs" />
     <Compile Include="Assets\Resources\Script\Overview.cs" />
     <Compile Include="Assets\Resources\Script\RotateSimple.cs" />

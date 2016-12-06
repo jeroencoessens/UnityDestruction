@@ -18,6 +18,9 @@ public class Controls : MonoBehaviour
     private int counter = 0;
 
     private bool _shouldRotate = false;
+    private bool _zoomed = false;
+
+    public ToolUser BladeTool;
 
     void Start()
     {
@@ -51,7 +54,17 @@ public class Controls : MonoBehaviour
             cake.AddComponent<HightLightedObject>();
         }
         
-        //Rotate blade
+        // Switch Blade
+        if (Input.GetMouseButtonDown(1))
+        {
+            BladeTool.UseShuriken = !BladeTool.UseShuriken;
+            LightSaber.SetActive(!BladeTool.UseShuriken);
+        }
+
+        // Zoom Blade
+        Zoom();
+
+        // Rotate blade
         var speed = 100.0f;
         var max = 28;
         
@@ -85,8 +98,8 @@ public class Controls : MonoBehaviour
 
     void RotateSaber()
     {
-        int angle = 160;
-        float speed = 0.6f;
+        int angle = 165;
+        float speed = 0.65f;
 
         if (_shouldRotate)
             LightSaber.transform.rotation = Quaternion.Slerp(LightSaber.transform.rotation, transform.parent.rotation * Quaternion.Euler(-angle, 180, -180), speed);
@@ -95,5 +108,20 @@ public class Controls : MonoBehaviour
 
         if (LightSaber.transform.rotation == transform.parent.rotation * Quaternion.Euler(-angle, 180, -180))
             _shouldRotate = false;
+    }
+
+    void Zoom()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
+        {
+            _zoomed = true;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0.0f)
+        {
+            _zoomed = false;
+        }
+
+        if (_zoomed) Camera.main.fieldOfView = 30;
+        else Camera.main.fieldOfView = 82;
     }
 }

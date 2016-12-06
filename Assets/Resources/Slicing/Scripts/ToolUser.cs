@@ -6,23 +6,34 @@ using BLINDED_AM_ME;
 public class ToolUser : MonoBehaviour {
 
 	private Material _capMaterial;
+    private GameObject _shuriken;
 
     // should make mesh collider ( max 255 poly convex hull )
     public Vector3 forceRightObj = Vector3.zero;
     public bool AddMeshCollider = false;
 
+    public bool UseShuriken = false;
+
     void Start()
     {
         _capMaterial = Resources.Load<Material>("Materials/matte 10");
+        _shuriken = Resources.Load<GameObject>("Prefabs/Shuriken");
     }
 	
 	void Update(){
 
-		if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
+            if (UseShuriken)
+            {
+                var shuriken = Instantiate(_shuriken, transform.position, transform.rotation);
+                shuriken.transform.Translate(0.075f, 0, 0);
+                shuriken.transform.Rotate(0, 0, 90);
+                shuriken.GetComponent<Rigidbody>().velocity = transform.forward * 80;
+            }
             StartCoroutine(CutMesh());
         }
-	}
+    }
 
     private IEnumerator CutMesh()
     {
@@ -34,7 +45,16 @@ public class ToolUser : MonoBehaviour {
             GameObject victim = hit.collider.gameObject;
 
             //conditions
-            if (hit.distance > 150) yield break;
+            if (UseShuriken)
+            {
+                if (hit.distance > 150) yield break;
+                yield return new WaitForSeconds(hit.distance / 200);
+            }
+            else if (!UseShuriken)
+            {
+                if (hit.distance > 6) yield break;
+            }
+
             if (victim.tag == "NoSlicing") yield break;
 
             string victimName = victim.name;
@@ -75,6 +95,12 @@ public class ToolUser : MonoBehaviour {
             pieces[1].name = victimName + " - R-Side";
 
             // Add rigidbodies and colliders
+            if (pieces[0].GetComponent<Rigidbody>())
+            {
+                pieces[0].GetComponent<Rigidbody>().isKinematic = false;
+                pieces[0].GetComponent<Rigidbody>().useGravity = true;
+            }
+
             if (!pieces[1].GetComponent<Rigidbody>())
                 pieces[1].AddComponent<Rigidbody>();
             
