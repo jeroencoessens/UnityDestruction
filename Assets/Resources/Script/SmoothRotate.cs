@@ -3,9 +3,10 @@ using System.Collections;
 
 public class SmoothRotate : MonoBehaviour {
 
-	void Update ()
-	{
-        // rotate camera ( not smooth atm )
-	    transform.Rotate(0, Time.deltaTime * 25, 0);
-	}
+    public float Speed = 25;
+
+    void Update()
+    {
+        transform.Rotate(Time.deltaTime * Speed * Input.GetAxis("Vertical"), 0, 0);
+    }
 }

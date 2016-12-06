@@ -6,7 +6,6 @@ using BLINDED_AM_ME;
 public class ToolUser : MonoBehaviour {
 
 	private Material _capMaterial;
-    public GameObject FollowUpGameObject;
 
     // should make mesh collider ( max 255 poly convex hull )
     public Vector3 forceRightObj = Vector3.zero;
@@ -14,8 +13,7 @@ public class ToolUser : MonoBehaviour {
 
     void Start()
     {
-        if(FollowUpGameObject != null)FollowUpGameObject.SetActive(false);
-        _capMaterial = Resources.Load<Material>("Materials/matte 9");
+        _capMaterial = Resources.Load<Material>("Materials/matte 10");
     }
 	
 	void Update(){
@@ -34,6 +32,9 @@ public class ToolUser : MonoBehaviour {
         {
             // object to slice
             GameObject victim = hit.collider.gameObject;
+
+            //conditions
+            if (hit.distance > 150) yield break;
             if (victim.tag == "NoSlicing") yield break;
 
             string victimName = victim.name;
@@ -70,8 +71,8 @@ public class ToolUser : MonoBehaviour {
             pieces[1].transform.localScale = victim.transform.localScale;
 
             // change name ( convenient )
-            pieces[0].name = victimName + " - left-side";
-            pieces[1].name = victimName + " - right-side";
+            pieces[0].name = victimName + " - L-Side";
+            pieces[1].name = victimName + " - R-Side";
 
             // Add rigidbodies and colliders
             if (!pieces[1].GetComponent<Rigidbody>())
@@ -88,25 +89,28 @@ public class ToolUser : MonoBehaviour {
             if (pieces[0].GetComponent<MeshCollider>())
                 Destroy(pieces[0].GetComponent<MeshCollider>());
 
-            // Add Coliiders
+            var skinWidth = 0.1f;
+
+            // Add Colliders
             if (AddMeshCollider)
             {
                 pieces[0].AddComponent<MeshCollider>().convex = true;
+                pieces[1].AddComponent<MeshCollider>().convex = true;
 
-                if (!pieces[1].GetComponent<MeshCollider>())
-                    pieces[1].AddComponent<MeshCollider>().convex = true;
+                var rightMc = pieces[1].GetComponent<MeshCollider>();
+                rightMc.inflateMesh = true;
+                rightMc.skinWidth = skinWidth;
             }
             else
             {
                 pieces[0].AddComponent<BoxCollider>();
-
-                if (!pieces[1].GetComponent<BoxCollider>())
-                    pieces[1].AddComponent<BoxCollider>();
+                pieces[1].AddComponent<BoxCollider>();
             }
 
-            // Enable FollowUpGameObject
-            if (FollowUpGameObject != null) FollowUpGameObject.SetActive(true);
-            gameObject.SetActive(false);
+            // Set as highlightable object
+            pieces[1].AddComponent<HightLightedObject>();
+
+            //Debug.Log("Components " + Resources.FindObjectsOfTypeAll(typeof(Rigidbody)).Length);
         }
     }
 

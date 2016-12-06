@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Resources/Scenes/SLICING.unity
+- path: Assets/Resources/Scenes/INSTANT FUN.unity
   isLoaded: 1
   isActive: 1

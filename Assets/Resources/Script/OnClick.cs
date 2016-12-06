@@ -17,6 +17,19 @@ public class OnClick : MonoBehaviour {
 
     // path to grab prefab from
     public string brokenPath = "Prefabs/DestroyedTeapot";
+
+    // path to hover material
+    private Material _newMaterial;
+
+    private Material _thisMaterial;
+    private Renderer _renderer;
+
+    void Start()
+    {
+        _renderer = GetComponent<Renderer>();
+        _thisMaterial = _renderer.material;
+        _newMaterial = Resources.Load<Material>("Materials/smooth 5");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,6 +45,16 @@ public class OnClick : MonoBehaviour {
 	        else
                 changeTime = false;
         }
+    }
+
+    void OnMouseOver()
+    {
+        _renderer.material = _newMaterial;
+    }
+
+    void OnMouseExit()
+    {
+        _renderer.material = _thisMaterial;
     }
 
     void OnMouseDown()

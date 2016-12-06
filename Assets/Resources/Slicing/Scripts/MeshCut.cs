@@ -54,7 +54,7 @@ namespace BLINDED_AM_ME{
                 
 				for(var i=0; i<indices.Length; i+=3)
 				{
-				    if (i%2500 == 0) yield return null;
+				    if (i%7500 == 0) yield return null;
 
 					p1 = indices[i];
 					p2 = indices[i+1];
