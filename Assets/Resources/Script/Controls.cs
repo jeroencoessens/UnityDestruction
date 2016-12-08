@@ -9,6 +9,7 @@ public class Controls : MonoBehaviour
 
     private GameObject obj;
     private GameObject cakeObj;
+    private GameObject menuObj;
 
     private bool flag = false;
 
@@ -26,6 +27,7 @@ public class Controls : MonoBehaviour
     {
         obj = Resources.Load<GameObject>("Prefabs/Cube");
         cakeObj = Resources.Load<GameObject>("Prefabs/Ski");
+        menuObj = Resources.Load<GameObject>("Prefabs/Menu");
     }
 
     void Update () {
@@ -53,7 +55,17 @@ public class Controls : MonoBehaviour
 
             cake.AddComponent<HightLightedObject>();
         }
-        
+
+        if (Input.GetButtonDown("Back"))
+        {
+            var pos = transform.position;
+            pos += transform.forward * 5;
+            pos.y = 0.0f;
+
+            var menuItem = Instantiate(menuObj, pos, Quaternion.identity);
+            menuItem.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+
         // Switch Blade
         if (Input.GetMouseButtonDown(1))
         {
