@@ -28,6 +28,7 @@ public class ToolUser : MonoBehaviour {
             {
                 var shuriken = Instantiate(_shuriken, transform.position, transform.rotation);
                 shuriken.transform.Translate(0.075f, 0, 0);
+
                 var shurikenObj = shuriken.transform.Find("Object");
                 shurikenObj.GetComponent<Rigidbody>().velocity = transform.forward * 80;
 
