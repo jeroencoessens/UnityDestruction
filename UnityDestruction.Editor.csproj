@@ -158,6 +158,53 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Chronos\Source\Dependencies\Controls\Editor\DropdownGUI.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Controls\Editor\DropdownOption.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Controls\Editor\Extensions.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Controls\Editor\PopupGUI.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Controls\Editor\PopupOption.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\AnimatorParameterDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\Extensions.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\TargetedDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityGetterDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityMemberDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityMemberDrawerHelper.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityMethodDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityObjectType.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\Reflection\Editor\UnityVariableDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\ElementAdderMenuBuilder.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\ElementAdderMenuCommandAttribute.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\ElementAdderMeta.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\GenericElementAdderMenu.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\GenericElementAdderMenuBuilder.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\IElementAdder.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\IElementAdderMenu.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\IElementAdderMenuBuilder.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Element Adder Menu\IElementAdderMenuCommand.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\GenericListAdaptor.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\IReorderableListAdaptor.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\IReorderableListDropTarget.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Internal\GUIHelper.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Internal\ReorderableListResources.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\Internal\SerializedPropertyUtility.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\ReorderableListControl.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\ReorderableListEvents.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\ReorderableListFlags.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\ReorderableListGUI.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\ReorderableListStyles.cs" />
+    <Compile Include="Assets\Chronos\Source\Dependencies\ReorderableList\Editor\SerializedPropertyAdaptor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\AreaClock2DEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\AreaClock3DEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\AreaClockEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\ClockEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\CustomRecorderEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\GlobalClockDrawer.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\GlobalClockEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\LocalClockEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\TimekeeperEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\TimelineChildEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Editor\TimelineEditor.cs" />
+    <Compile Include="Assets\Chronos\Source\Utilities\Editor\AddonDetector.cs" />
     <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\BloomAndFlaresEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\BloomEditor.cs" />
@@ -175,6 +222,7 @@
     <Compile Include="Assets\Resources\Slicing\Editor\Trail_MeshEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Chronos\Readme.txt" />
     <None Include="Assets\Resources\Shaders\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Resources\Shaders\ToonLit.shader" />
     <None Include="Assets\Resources\Shaders\ToonLitOutline.shader" />

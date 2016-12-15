@@ -16,6 +16,11 @@ public class Controls : MonoBehaviour
     //blade
     public GameObject Blade;
     public GameObject LightSaber;
+    public GameObject Shuriken;
+
+    public AudioSource[] LightSaber_AudioSources = {null, null};
+    public AudioSource[] Shuriken_AudioSources = { null };
+
     private int counter = 0;
 
     private bool _shouldRotate = false;
@@ -67,10 +72,13 @@ public class Controls : MonoBehaviour
         }
 
         // Switch Blade
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2))
         {
             BladeTool.UseShuriken = !BladeTool.UseShuriken;
             LightSaber.SetActive(!BladeTool.UseShuriken);
+            Shuriken.SetActive(BladeTool.UseShuriken);
+
+            PlayActivateLightSaber();
         }
 
         // Zoom Blade
@@ -96,7 +104,11 @@ public class Controls : MonoBehaviour
         else
         {
             if (Input.GetMouseButtonDown(0) && !_shouldRotate)
+            {
                 _shouldRotate = true;
+                PlayHitLightSaber();
+                PlayShurikenThrow();
+            }
 
             RotateSaber();
         }
@@ -135,5 +147,20 @@ public class Controls : MonoBehaviour
 
         if (_zoomed) Camera.main.fieldOfView = 30;
         else Camera.main.fieldOfView = 82;
+    }
+
+    void PlayActivateLightSaber()
+    {
+        LightSaber_AudioSources[0].Play();
+    }
+
+    void PlayHitLightSaber()
+    {
+        LightSaber_AudioSources[1].Play();
+    }
+
+    void PlayShurikenThrow()
+    {
+        Shuriken_AudioSources[0].Play();
     }
 }

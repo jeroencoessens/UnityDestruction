@@ -36,16 +36,16 @@ public class HightLightedObject : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Highlighted)
-        {
-            if (renderer.material.shader != shader2)
-                renderer.material.shader = shader2;
-        }
-        else
-        {
-            if (renderer.material.shader != shader1)
-                renderer.material.shader = shader1;
-        }
+        //if (Highlighted)
+        //{
+        //    if (renderer.material.shader != shader2)
+        //        renderer.material.shader = shader2;
+        //}
+        //else
+        //{
+        //    if (renderer.material.shader != shader1)
+        //        renderer.material.shader = shader1;
+        //}
 
         Highlighted = false;
     }
