@@ -55,9 +55,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -99,9 +96,6 @@
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.VR">
       <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
@@ -158,6 +152,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Chronos\Readme.txt" />
+    <None Include="Assets\ProceduralToolkit\Shaders\Diffuse Vertex Color.shader" />
+    <None Include="Assets\ProceduralToolkit\Shaders\Gradient Skybox.shader" />
+    <None Include="Assets\ProceduralToolkit\Shaders\Specular Vertex Color.shader" />
+    <None Include="Assets\ProceduralToolkit\Shaders\Standard Vertex Color.shader" />
+    <None Include="Assets\ProceduralToolkit\Shaders\Unlit Vertex Color.shader" />
     <None Include="Assets\Resources\Shaders\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Resources\Shaders\ToonLit.shader" />
     <None Include="Assets\Resources\Shaders\ToonLitOutline.shader" />

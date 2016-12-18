@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class DestroySelf : MonoBehaviour
 {
-    public float timer = 3.0f;
+    public float Timer = 3.0f;
 
-    void Update () {
-		Destroy(gameObject, timer);
-	}
+    void Start()
+    {
+        Invoke("DestroyMe", Timer);
+    }
+
+    public void DontDestroy()
+    {
+        CancelInvoke("DestroyMe");
+    }
+
+    void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
 }

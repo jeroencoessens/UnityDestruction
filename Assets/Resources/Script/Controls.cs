@@ -27,19 +27,26 @@ public class Controls : MonoBehaviour
     private bool _zoomed = false;
 
     public ToolUser BladeTool;
+    private GameObject MenuItem;
+
+    private bool _hasPressedR = false;
+    private List<GameObject> _boulderList;
+    private int _boulderCounter = 0;
 
     void Start()
     {
         obj = Resources.Load<GameObject>("Prefabs/Cube");
         cakeObj = Resources.Load<GameObject>("Prefabs/Ski");
         menuObj = Resources.Load<GameObject>("Prefabs/Menu");
+
+        _boulderList = new List<GameObject>();
     }
 
     void Update () {
 
         if (!flag)
         {
-            if (Input.GetKey(KeyCode.F)) // dpawn collider to push away rigids
+            if (Input.GetKey(KeyCode.F)) // spawn collider to push away rigids
             {
                 var cube = Instantiate(obj, transform.position, Quaternion.identity);
                 cube.tag = "NoSlicing";
@@ -49,30 +56,43 @@ public class Controls : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) // spawn object to slice
+        if (Input.GetKey(KeyCode.R))
         {
             var pos = transform.position;
-            pos += transform.forward * 15;
+            pos += transform.forward * 10;
             if (pos.y < 2.5f) pos.y = 2.5f;
 
-            var cake = Instantiate(cakeObj, pos, transform.rotation);
-            cake.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            if (Input.GetKeyDown(KeyCode.R) && !_hasPressedR) // spawn object to slice
+            {
+                ++_boulderCounter;
+                _boulderList.Add(Instantiate(cakeObj, pos, transform.rotation));
+            }
 
-            cake.AddComponent<HightLightedObject>();
+            _boulderList[_boulderCounter - 1].transform.rotation = Quaternion.Euler(60, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            _boulderList[_boulderCounter - 1].transform.position = pos;
+            _hasPressedR = true;
         }
+        else
+            _hasPressedR = false;
 
-        if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Back"))// spawn menu item
         {
             var pos = transform.position;
-            pos += transform.forward * 5;
+            pos += transform.forward * 4;
             pos.y = 0.0f;
 
-            var menuItem = Instantiate(menuObj, pos, Quaternion.identity);
-            menuItem.transform.rotation = Quaternion.Euler(-90, 0, 0);
+            if (MenuItem == null)
+            {
+                MenuItem = Instantiate(menuObj, pos, Quaternion.identity);
+            }
+
+            MenuItem.transform.position = pos;
+
+            var rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            MenuItem.transform.rotation = rotation * Quaternion.Euler(-90, 0, 136);
         }
 
-        // Switch Blade
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)) // switch blade
         {
             BladeTool.UseShuriken = !BladeTool.UseShuriken;
             LightSaber.SetActive(!BladeTool.UseShuriken);
@@ -145,8 +165,7 @@ public class Controls : MonoBehaviour
             _zoomed = false;
         }
 
-        if (_zoomed) Camera.main.fieldOfView = 30;
-        else Camera.main.fieldOfView = 82;
+        Camera.main.fieldOfView = _zoomed ? 30 : 82;
     }
 
     void PlayActivateLightSaber()

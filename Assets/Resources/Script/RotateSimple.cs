@@ -4,6 +4,8 @@ using System.Collections;
 public class RotateSimple : MonoBehaviour {
 
     public float Speed = 25;
+    public bool RotateSideways = true;
+
     public bool ShouldCheckInput = true;
 
     private bool Stop = false;
@@ -12,6 +14,7 @@ public class RotateSimple : MonoBehaviour {
 	void Update ()
 	{
 	    float multiplier;
+
 
 	    if (ShouldCheckInput)
 	    {
@@ -31,6 +34,10 @@ public class RotateSimple : MonoBehaviour {
 	        multiplier = 0.2f;
 	    }
 
-        transform.Rotate(0, Time.deltaTime * Speed * multiplier, 0);
+
+        float sideWays = 0.0f;
+	    if (RotateSideways) sideWays = Speed*multiplier/4;
+
+        transform.Rotate(Time.deltaTime * sideWays, Time.deltaTime * Speed * multiplier, 0);
     }
 }

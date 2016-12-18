@@ -77,7 +77,7 @@ public class ToolUser : MonoBehaviour {
                 if (hit.distance > MaxDistanceLightSaber) continue;
             }
 
-            if (victim.tag == "NoSlicing") continue;
+            if (victim.tag != "Highlightable") continue;
             var victimName = victim.name;
 
             // -- MESH CUT --
@@ -97,6 +97,13 @@ public class ToolUser : MonoBehaviour {
             // change name ( convenient )
             pieces[0].name = victimName + " - L-Side";
             pieces[1].name = victimName + " - R-Side";
+
+            // delete components
+            if (pieces[0].GetComponent<DestroySelf>())
+            {
+                pieces[0].GetComponent<DestroySelf>().DontDestroy();
+                Destroy(pieces[0].GetComponent<DestroySelf>());
+            }
 
             // Add rigidbodies and colliders
             if (pieces[0].GetComponent<Rigidbody>())
@@ -137,6 +144,7 @@ public class ToolUser : MonoBehaviour {
 
             // Set as highlightable object
             pieces[1].AddComponent<HightLightedObject>();
+            pieces[1].AddComponent<DestroySelf>().Timer = 10.0f;
 
             yield return null;
         }
